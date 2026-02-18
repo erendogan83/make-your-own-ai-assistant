@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Portfolio Assistant</title>
+  <meta name="description" content="AI-powered academic portfolio chatbot" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🤖</span>
+        <span class="logo-text">AI Portfolio Assistant</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Hello, I'm <span class="highlight" id="ownerName">Your Name</span></h1>
+      <p class="hero-subtitle" id="ownerTitle">Researcher & Engineer</p>
+      <p class="hero-desc" id="ownerBio">Ask me anything about my research, projects, and skills.</p>
+      <button class="btn-primary" onclick="openChat()">Chat with My AI ✨</button>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-ring">
+        <div class="avatar" id="avatarEmoji">👨‍💻</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="section" id="about">
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div class="about-card" id="aboutCard">
+        <p id="aboutText">Loading...</p>
+      </div>
+      <div class="skills-card">
+        <h3>Skills</h3>
+        <div class="skill-tags" id="skillTags"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section class="section section-dark" id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="section" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-links" id="contactLinks"></div>
+  </section>
+
+  <!-- ========== CHATBOT WIDGET ========== -->
+  <div class="chat-fab" id="chatFab" onclick="toggleChat()" title="Chat with AI">
+    <span class="fab-icon">💬</span>
+    <span class="fab-badge" id="chatBadge" style="display:none;">1</span>
+  </div>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <span class="chat-avatar">🤖</span>
+        <div>
+          <div class="chat-name" id="chatBotName">AI Assistant</div>
+          <div class="chat-status">Online</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        <div class="message-content" id="welcomeMsg">Hi! I'm your AI assistant. Ask me anything! 👋</div>
+      </div>
+    </div>
+
+    <div class="chat-suggestions" id="suggestions"></div>
+
+    <div class="chat-input-area">
+      <input
+        type="text"
+        id="chatInput"
+        class="chat-input"
+        placeholder="Ask me anything..."
+        onkeydown="handleKey(event)"
+        autocomplete="off"
+      />
+      <button class="chat-send" onclick="sendMessage()" id="sendBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p>Built with ❤️ using <a href="https://github.com/erendogan83/make-your-own-chatbot" target="_blank">make-your-own-chatbot</a> · Powered by Groq + Cloudflare</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
