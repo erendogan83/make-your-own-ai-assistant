@@ -1,384 +1,432 @@
-# 🤖 make-your-own-chatbot
+<div align="center">
 
-**Free, open-source AI portfolio chatbot** — deploy in under 10 minutes using GitHub Pages + Cloudflare Workers + Groq API. No backend servers, no monthly fees.
+# 🤖 make-your-own-ai-assistant
 
-**🇹🇷 Türkçe açıklama aşağıda.**
+**Build your own AI-powered portfolio chatbot — free, serverless, deployed in 10 minutes.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-cyan.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/erendogan83/make-your-own-ai-assistant?style=social)](https://github.com/erendogan83/make-your-own-ai-assistant/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/erendogan83/make-your-own-ai-assistant?style=social)](https://github.com/erendogan83/make-your-own-ai-assistant/fork)
+[![Cloudflare Workers](https://img.shields.io/badge/Deploy-Cloudflare_Workers-F38020?logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
+[![Powered by Groq](https://img.shields.io/badge/AI-Groq_LLaMA_3.3_70B-00AA44?logo=meta&logoColor=white)](https://console.groq.com)
+
+<br/>
+
+**[🚀 Live Demo](https://eren-ai-assistant.pages.dev/) &nbsp;·&nbsp; [📖 Türkçe](#-türkçe-kurulum-rehberi) &nbsp;·&nbsp; [🐛 Issues](https://github.com/erendogan83/make-your-own-ai-assistant/issues) &nbsp;·&nbsp; [💬 Discussions](https://github.com/erendogan83/make-your-own-ai-assistant/discussions)**
+
+<br/>
+
+> *One config file. No backend. No credit card. Your AI assistant, live in minutes.*
+
+</div>
 
 ---
 
-## ✨ Features
+## 🎬 See It In Action
 
-- 💬 AI-powered chat about your research, projects, and skills
-- 🆓 100% free stack (GitHub Pages + Cloudflare free tier + Groq free tier)
-- 🔒 API key never exposed to the browser (Cloudflare Worker proxy)
-- 🌐 Bilingual — auto-detects Turkish / English from user input
-- 📱 Mobile-responsive dark theme
-- ⚡ Zero build step — pure HTML/CSS/JS
+> 💡 **[Try the live demo →](https://eren-ai-assistant.pages.dev/)**
+> Ask it about research, projects, skills — or anything!
 
 ---
 
-## 🗂️ Project Structure
+## ✨ Why Use This?
+
+Most AI chatbot templates require paid hosting, complex backends, or leave API keys exposed in the browser. This project solves all three:
+
+| Problem | This Solution |
+|---------|--------------|
+| 💸 Expensive hosting | GitHub Pages — **free forever** |
+| 🔓 API keys exposed in browser | Cloudflare Worker proxy — **key stays secret** |
+| 🖥️ Complex backend needed | Serverless Workers — **no server to manage** |
+| 🤖 Weak AI models | Groq + LLaMA 3.3 70B — **state-of-the-art, free tier** |
+| ⏱️ Days to set up | Edit one file + 3 commands — **under 10 minutes** |
+
+---
+
+## 🏗️ Architecture
 
 ```
-make-your-own-chatbot/
-├── public/                   ← GitHub Pages serves this folder
-│   ├── index.html
-│   ├── css/style.css
+User Browser ──────► GitHub Pages          (your static portfolio site)
+                            │
+                            │  POST /chat
+                            ▼
+                  Cloudflare Worker         (API key stored here, never in code)
+                            │
+                            │  Groq API call
+                            ▼
+                  LLaMA 3.3 70B             (Groq free tier · blazing fast)
+```
+
+**No server. No database. No monthly bill.**
+
+---
+
+## 📁 Project Structure
+
+```
+make-your-own-ai-assistant/
+│
+├── 📂 public/                     ← GitHub Pages serves this
+│   ├── index.html                 ← Portfolio + chat UI
+│   ├── css/style.css              ← Dark theme, responsive
 │   └── js/
-│       ├── config.js         ← ✏️  ONLY FILE YOU NEED TO EDIT
-│       └── app.js
-├── cloudflare-workers/
-│   ├── worker.js             ← Groq API proxy (deployed to Cloudflare)
-│   └── wrangler.toml
-└── .github/workflows/
-    └── deploy.yml            ← Auto-deploys public/ to GitHub Pages
+│       ├── config.js              ← ✏️  THE ONLY FILE YOU EDIT
+│       └── app.js                 ← Chat logic (no need to touch)
+│
+├── 📂 cloudflare-workers/
+│   ├── worker.js                  ← Groq API proxy (secure)
+│   └── wrangler.toml              ← Worker config
+│
+└── 📂 .github/workflows/
+    └── deploy.yml                 ← Auto-deploy to GitHub Pages on push
 ```
 
 ---
 
-## 🚀 Step-by-Step Setup
+## 🚀 Setup Guide
 
 ### Step 1 — Fork & Clone
 
-1. Click **Fork** on this repo.
-2. Clone your fork:
+Click the **Fork** button at the top right, then:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/make-your-own-chatbot.git
-cd make-your-own-chatbot
+git clone https://github.com/YOUR-USERNAME/make-your-own-ai-assistant.git
+cd make-your-own-ai-assistant
 ```
 
 ---
 
-### Step 2 — Edit `config.js` (Your Personal Info)
+### Step 2 — Edit `config.js` (The Only File You Touch)
 
-Open `public/js/config.js` and fill in your own data:
+Open **`public/js/config.js`** and fill in your details:
 
 ```js
 const CONFIG = {
   owner: {
     name:       "Your Full Name",
-    title:      "Graduate Student in EEE",
+    title:      "Graduate Student / Engineer / Researcher",
     university: "Your University",
     email:      "your@email.com",
-    bio:        "Write a short bio here...",
-    avatar:     "👨‍💻",   // emoji or link to profile photo
+    bio:        "A short bio about yourself...",
+    avatar:     "👨‍💻",   // emoji or URL to a photo
   },
-  // ... add your projects, skills, thesis, etc.
+  research: {
+    thesis: {
+      title:    "Your Thesis Title",
+      keywords: ["AI", "IoT", "Power Systems"],
+      abstract: "Brief description of your research...",
+      status:   "In Progress",
+    },
+  },
+  projects: [
+    {
+      name:        "My Cool Project",
+      description: "What it does...",
+      tech:        ["Python", "ESP32", "React"],
+      github:      "https://github.com/you/project",
+    },
+  ],
+  skills: {
+    programming: ["Python", "JavaScript", "MATLAB"],
+    tools:       ["Git", "Docker", "Linux"],
+  },
+  social: {
+    github:   "https://github.com/yourusername",
+    linkedin: "https://linkedin.com/in/yourprofile",
+    orcid:    "https://orcid.org/0000-0000-0000-0000",
+  },
+  chatbot: {
+    name:     "AI Assistant",
+    greeting: "Hi! I'm {owner}'s AI assistant. Ask me anything! 👋",
+    suggestions: [
+      "Tell me about your research",
+      "What projects have you built?",
+      "How can I contact you?",
+    ],
+  },
+  // ← Update this after Step 4
+  apiEndpoint: "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/chat",
+};
 ```
 
-> **That's it for the frontend.** You only touch this one file.
+> That's it for the frontend. Everything else is automated.
 
 ---
 
 ### Step 3 — Get a Free Groq API Key
 
-1. Go to [console.groq.com](https://console.groq.com) and sign up (free).
-2. Click **API Keys → Create API Key**.
-3. Copy the key — you'll need it in Step 5.
-
-> Groq's free tier gives you ~100 requests/day on Llama 3.3 70B — plenty for a portfolio chatbot.
+1. Go to **[console.groq.com](https://console.groq.com)** → Sign up (free, no credit card)
+2. **API Keys → Create API Key**
+3. Copy the key — you'll use it in the next step
 
 ---
 
 ### Step 4 — Deploy the Cloudflare Worker
 
-#### 4a. Install Wrangler CLI
-
 ```bash
+# 1. Install Wrangler (Cloudflare's CLI)
 npm install -g wrangler
-```
 
-#### 4b. Login to Cloudflare
-
-```bash
+# 2. Login to Cloudflare (free account at cloudflare.com)
 wrangler login
-```
 
-A browser tab will open. Sign in (or create a free account at [dash.cloudflare.com](https://dash.cloudflare.com)).
+# 3. (Optional) Rename your worker in cloudflare-workers/wrangler.toml
+#    name = "my-portfolio-bot"
 
-#### 4c. Edit worker name (optional)
-
-Open `cloudflare-workers/wrangler.toml` and change the name:
-
-```toml
-name = "my-portfolio-chatbot"   # rename this to something unique
-```
-
-#### 4d. Deploy the worker
-
-```bash
+# 4. Deploy
 cd cloudflare-workers
 wrangler deploy
-```
 
-You'll see output like:
-
-```
-✅  Published my-portfolio-chatbot.YOUR-SUBDOMAIN.workers.dev
-```
-
-Copy that URL — you need it next.
-
-#### 4e. Set your Groq API key as a secret
-
-```bash
+# 5. Store your Groq key — it's encrypted, never appears in code
 wrangler secret put GROQ_API_KEY
+# → Paste your key when prompted
 ```
 
-Paste your Groq key when prompted. This stores it securely — it will **never** appear in your code.
+After deploy you'll see:
+```
+✅  Published: https://my-portfolio-bot.YOUR-SUBDOMAIN.workers.dev
+```
+
+Copy this URL and set it as `apiEndpoint` in `config.js`.
 
 ---
 
-### Step 5 — Connect Frontend to Worker
-
-Back in `public/js/config.js`, update the endpoint:
-
-```js
-apiEndpoint: "https://my-portfolio-chatbot.YOUR-SUBDOMAIN.workers.dev/chat",
-```
-
----
-
-### Step 6 — Enable GitHub Pages
-
-1. Push your changes:
+### Step 5 — Enable GitHub Pages
 
 ```bash
 git add .
-git commit -m "Configure my portfolio chatbot"
+git commit -m "feat: configure my AI portfolio assistant"
 git push
 ```
 
-2. In your GitHub repo go to **Settings → Pages**.
-3. Under **Source**, select **GitHub Actions**.
-4. The `deploy.yml` workflow runs automatically on every push to `main`.
-5. After ~1 minute, your site is live at:
+In your GitHub repo: **Settings → Pages → Source: GitHub Actions**
 
+After ~1 minute:
 ```
-https://YOUR-USERNAME.github.io/make-your-own-chatbot/
+https://YOUR-USERNAME.github.io/make-your-own-ai-assistant/
 ```
+
+**Done. 🎉**
 
 ---
 
-## 🧪 Test Locally (Optional)
+## 🆓 100% Free Stack
 
-No build needed — just open the HTML file:
+| Service | Free Tier | Ever Need to Pay? |
+|---------|-----------|-------------------|
+| GitHub Pages | Unlimited static hosting | ❌ No |
+| Cloudflare Workers | 100,000 requests / day | ❌ No (personal use) |
+| Groq API (LLaMA 3.3 70B) | ~100 requests / day | ❌ No (personal use) |
+
+**Monthly cost: $0.00**
+
+---
+
+## 🔧 Customisation
+
+**Change the AI model** in `cloudflare-workers/worker.js`:
+```js
+model: "llama-3.3-70b-versatile"
+// Other free Groq models:
+// "gemma2-9b-it"  |  "mixtral-8x7b-32768"  |  "llama-3.1-8b-instant"
+```
+
+**Change the color theme** in `public/css/style.css`:
+```css
+:root {
+  --accent: #00d4ff;   /* change to your favourite color */
+  --bg:     #0d1117;   /* dark background */
+}
+```
+
+**The chatbot auto-detects language** — it replies in Turkish 🇹🇷 if the user writes in Turkish, and in English 🇬🇧 otherwise.
+
+---
+
+## 🧪 Local Testing
+
+No build step required:
 
 ```bash
-# Option 1: Python
-cd public && python3 -m http.server 8080
+# Terminal 1 — serve the site
+cd public
+python3 -m http.server 8080
 
-# Option 2: Node
-npx serve public
+# Terminal 2 — run the worker locally
+cd cloudflare-workers
+wrangler dev
 ```
 
-Then open `http://localhost:8080`.
-
-> The chatbot won't work locally until you set `apiEndpoint` in config.js. For local Worker testing, run `wrangler dev` in the `cloudflare-workers/` folder and set the endpoint to `http://localhost:8787/chat`.
-
----
-
-## 🔧 Customisation Tips
-
-| What | Where |
-|------|--------|
-| Name, bio, avatar | `public/js/config.js` → `owner` |
-| Research / thesis | `config.js` → `research` |
-| Projects | `config.js` → `projects` |
-| Skills | `config.js` → `skills` |
-| Chat suggestions | `config.js` → `chatbot.suggestions` |
-| Colors / fonts | `public/css/style.css` → `:root` variables |
-| AI model | `cloudflare-workers/worker.js` → `model` field |
-
----
-
-## 🆓 Free Tier Limits
-
-| Service | Free Limit |
-|---------|-----------|
-| GitHub Pages | Unlimited static hosting |
-| Cloudflare Workers | 100,000 requests/day |
-| Groq API | ~100 req/day (Llama 3.3 70B) |
-
-All limits are very generous for a personal portfolio site.
+Set `apiEndpoint: "http://localhost:8787/chat"` in `config.js` while testing locally.
 
 ---
 
 ## 🛠️ Troubleshooting
 
-**Chat says "couldn't connect to AI"**
-- Check `apiEndpoint` in `config.js` — make sure it matches your Worker URL exactly.
-- Open browser DevTools → Console to see the error.
+| Symptom | Fix |
+|---------|-----|
+| "couldn't connect to AI" | Check `apiEndpoint` in `config.js` — must be exact Worker URL with `https://` |
+| Worker returns 401 | Run `wrangler secret put GROQ_API_KEY` again |
+| GitHub Pages blank page | Check **Actions** tab for deploy errors; confirm source is set to "GitHub Actions" |
+| Mobile CORS error | Already handled in `worker.js` — check your Worker deployed successfully |
 
-**Worker returns 401**
-- Your Groq key may not be set. Run `wrangler secret put GROQ_API_KEY` again.
+---
 
-**GitHub Pages shows old version**
-- Wait 1-2 min and hard-refresh. Check Actions tab for build status.
+## 🤝 Contributing
+
+All contributions welcome!
+
+- 🐛 [Open an issue](https://github.com/erendogan83/make-your-own-ai-assistant/issues) for bugs
+- 💡 [Start a discussion](https://github.com/erendogan83/make-your-own-ai-assistant/discussions) for feature ideas  
+- 🔀 Submit a PR — all skill levels welcome
+
+**Roadmap / good first issues:**
+- [ ] Dark / light theme toggle
+- [ ] Voice input (Web Speech API)
+- [ ] One-click "Deploy to Cloudflare" button
+- [ ] PDF resume download
+- [ ] More language auto-detection (Arabic, German, French...)
+- [ ] Typing animation for bot responses
+
+---
+
+## 🌍 Community Builds
+
+Built your own version with this template? Share it in [Discussions](https://github.com/erendogan83/make-your-own-ai-assistant/discussions/categories/show-and-tell) — I'll feature it here!
 
 ---
 
 ## 📄 License
 
-MIT — use it, fork it, build on it.
+MIT © [Eren DOĞAN](https://github.com/erendogan83) — free to use, modify, and distribute.
+
+**If this saved you time, a ⭐ star means a lot!**
 
 ---
 
 ---
 
-# 🇹🇷 Türkçe Kurulum Rehberi
+## 🇹🇷 Türkçe Kurulum Rehberi
 
-## Genel Bakış
+### Nedir Bu Proje?
 
-Bu proje ile kendi AI portföy chatbot'unuzu **tamamen ücretsiz** olarak kurabilirsiniz:
+Bu şablonla kendi AI portföy asistanınızı **tamamen ücretsiz** ve **10 dakikada** kurabilirsiniz. Sunucu gerekmez, aylık ücret yok, API key'iniz asla tarayıcıda görünmez.
 
-- **GitHub Pages** → statik site barındırma (ücretsiz)
-- **Cloudflare Workers** → API key'i gizleyen proxy (ücretsiz)
-- **Groq API** → Llama 3.3 70B ile AI yanıtları (ücretsiz tier)
+**Kullanılan stack:**
+
+- **GitHub Pages** → Statik site barındırma (ücretsiz, sınırsız)
+- **Cloudflare Workers** → API key'i güvenle saklayan proxy (ücretsiz, günde 100K istek)
+- **Groq API + LLaMA 3.3 70B** → AI yanıtları (ücretsiz tier, kart gerekmez)
 
 ---
 
-## Adım Adım Kurulum
+### Adım 1 — Fork Et
 
-### Adım 1 — Repoyu Fork Et
-
-1. Bu sayfanın sağ üstündeki **Fork** butonuna tıklayın.
-2. Kendi bilgisayarınıza klonlayın:
+Sayfanın sağ üstündeki **Fork** butonuna tıklayın, ardından klonlayın:
 
 ```bash
-git clone https://github.com/KULLANICI-ADINIZ/make-your-own-chatbot.git
-cd make-your-own-chatbot
+git clone https://github.com/KULLANICI-ADINIZ/make-your-own-ai-assistant.git
+cd make-your-own-ai-assistant
 ```
 
 ---
 
 ### Adım 2 — `config.js` Dosyasını Düzenle
 
-`public/js/config.js` dosyasını açın ve **kendi bilgilerinizi** girin:
+**`public/js/config.js`** dosyasını açın. **Sadece bu dosyayı düzenlemeniz yeterli:**
 
 ```js
 owner: {
   name:       "Adınız Soyadınız",
   title:      "Elektrik-Elektronik Müh. Yüksek Lisans",
-  university: "Üniversitenizin Adı",
+  university: "Gaziantep İslam Bilim ve Teknoloji Üniversitesi",
   email:      "email@adresiniz.com",
   bio:        "Kısa biyografiniz...",
   avatar:     "👨‍💻",
 },
 ```
 
-Ayrıca projelerinizi, tezinizi, becerilerinizi ve sosyal medya linklerinizi de doldurun.
-
-> **Sadece bu dosyayı düzenlemeniz yeterli.**
+`research`, `projects`, `skills`, `social` alanlarını da kendinize göre doldurun.
 
 ---
 
 ### Adım 3 — Ücretsiz Groq API Key Al
 
-1. [console.groq.com](https://console.groq.com) adresine gidin, ücretsiz hesap açın.
-2. **API Keys → Create API Key** butonuna tıklayın.
-3. Key'i kopyalayın, 5. adımda kullanacaksınız.
+1. **[console.groq.com](https://console.groq.com)** → Ücretsiz hesap aç (kart gerekmez)
+2. **API Keys → Create API Key** → Key'i kopyala
 
 ---
 
 ### Adım 4 — Cloudflare Worker Kur
 
-#### 4a. Wrangler CLI Kur
-
 ```bash
+# Wrangler CLI kur
 npm install -g wrangler
-```
 
-#### 4b. Cloudflare'e Giriş Yap
-
-```bash
+# Cloudflare hesabına giriş yap (cloudflare.com — ücretsiz)
 wrangler login
-```
 
-Açılan tarayıcı sekmesinde [cloudflare.com](https://dash.cloudflare.com) hesabınızla giriş yapın (ücretsiz hesap yeterli).
-
-#### 4c. Worker'ı Deploy Et
-
-```bash
+# Worker'ı deploy et
 cd cloudflare-workers
 wrangler deploy
-```
 
-Deploy tamamlandığında şöyle bir URL görürsünüz:
-
-```
-✅  my-portfolio-chatbot.SUBDOMAIN-ADINIZ.workers.dev
-```
-
-Bu URL'yi kopyalayın.
-
-#### 4d. Groq API Key'ini Gizli Olarak Kaydet
-
-```bash
+# Groq key'ini güvenle kaydet (kod içinde asla görünmez)
 wrangler secret put GROQ_API_KEY
+# → Key'inizi yapıştırın
 ```
 
-Sorulduğunda Groq key'inizi yapıştırın. Bu key **kod içinde asla görünmez**, Cloudflare'de güvenli saklanır.
+Çıktıdaki URL'yi kopyalayıp `config.js` → `apiEndpoint` alanına yapıştırın.
 
 ---
 
-### Adım 5 — Frontend'i Worker'a Bağla
-
-`public/js/config.js` dosyasında şu satırı güncelleyin:
-
-```js
-apiEndpoint: "https://my-portfolio-chatbot.SUBDOMAIN-ADINIZ.workers.dev/chat",
-```
-
----
-
-### Adım 6 — GitHub Pages'i Etkinleştir
-
-1. Değişiklikleri push edin:
+### Adım 5 — GitHub Pages'i Etkinleştir
 
 ```bash
 git add .
-git commit -m "Kendi portföy chatbotumu yapılandırdım"
+git commit -m "kendi portföy asistanım hazır"
 git push
 ```
 
-2. GitHub repo sayfanızda **Settings → Pages** bölümüne gidin.
-3. **Source** olarak **GitHub Actions** seçin.
-4. Yaklaşık 1 dakika sonra siteniz yayında:
+Repo'da **Settings → Pages → Source: GitHub Actions** seçin.
 
+~1 dakika sonra:
 ```
-https://KULLANICI-ADINIZ.github.io/make-your-own-chatbot/
+https://KULLANICI-ADINIZ.github.io/make-your-own-ai-assistant/
 ```
 
 ---
 
-## Özelleştirme
+### Maliyet
 
-| Ne | Nerede |
-|----|--------|
-| İsim, biyografi | `config.js` → `owner` |
-| Tez bilgileri | `config.js` → `research` |
-| Projeler | `config.js` → `projects` |
-| Beceriler | `config.js` → `skills` |
-| Hızlı soru butonları | `config.js` → `chatbot.suggestions` |
-| Renkler | `style.css` → `:root` değişkenleri |
+| Hizmet | Ücretsiz Limit | Ücret Gerekir mi? |
+|--------|---------------|-------------------|
+| GitHub Pages | Sınırsız | ❌ Hayır |
+| Cloudflare Workers | Günde 100.000 istek | ❌ Hayır |
+| Groq API | Günde ~100 istek | ❌ Hayır |
 
----
-
-## Sorun Giderme
-
-**"couldn't connect to AI" hatası:**
-→ `config.js` içindeki `apiEndpoint` URL'sini kontrol edin. Worker URL'siyle birebir aynı olmalı.
-
-**Worker 401 hatası:**
-→ `wrangler secret put GROQ_API_KEY` komutunu tekrar çalıştırın.
-
-**GitHub Pages eski sürümü gösteriyor:**
-→ 1-2 dakika bekleyin ve Ctrl+F5 ile sayfayı yenileyin. Repo'da Actions sekmesini kontrol edin.
+**Aylık maliyet: ₺0**
 
 ---
 
-## Lisans
+### Sorun Giderme
 
-MIT — dilediğiniz gibi kullanabilir, fork edebilir, geliştirebilirsiniz.
+| Sorun | Çözüm |
+|-------|-------|
+| "couldn't connect to AI" | `config.js`'deki `apiEndpoint` URL'sini kontrol et |
+| Worker 401 hatası | `wrangler secret put GROQ_API_KEY` komutunu tekrar çalıştır |
+| Sayfa boş görünüyor | Repo'da **Actions** sekmesini kontrol et |
+
+---
+
+<div align="center">
+
+**Beğendiyseniz ⭐ star atın ve 🔀 fork'layın — açık kaynak projeleri bu şekilde büyür!**
+
+<br/>
+
+[Eren DOĞAN](https://github.com/erendogan83) &nbsp;·&nbsp;
+[LinkedIn](https://www.linkedin.com/in/eren-dogan27/) &nbsp;·&nbsp;
+[X / Twitter](https://x.com/erendogan_tr) &nbsp;·&nbsp;
+[ORCID](https://orcid.org/0009-0009-0430-3395)
+
+</div>
